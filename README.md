@@ -1,5 +1,12 @@
+ ## Database Design (ERD)
 
+The Entity Relationship Diagram (ERD) illustrates the structure of the database for the MAUI Offline Shopping App. It contains six entities: Customer, Category, Product, CartItem, Order and OrderItem.
 
+The diagram shows the attributes, primary keys (PK), foreign keys (FK) and relationships between the entities. It represents how customers select products, add them to their carts and complete purchases.
+
+## ERD Diagram
+
+![MAUI Offline Shopping App ERD](Documents/MAUI%20Offline%20Shopping%20App%20ERD%20Diagram%20%281%29.png)
 
 ## Why Does OrderIem Store Its Own Price?
 The OdretItem entity stores its own UnitPrice to preserve the price of a product at the time of purchase.
