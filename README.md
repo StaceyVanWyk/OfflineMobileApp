@@ -6,7 +6,7 @@ The diagram shows the attributes, primary keys (PK), foreign keys (FK) and relat
 
 ## ERD Diagram
 
-![MAUI Offline Shopping App ERD](Documents/MAUI%20Offline%20Shopping%20App%20ERD%20Diagram%20%281%29.png)
+![MAUI Offline Shopping App ERD](Documents/erd.png)
 
 ## Why Does OrderIem Store Its Own Price?
 The OdretItem entity stores its own UnitPrice to preserve the price of a product at the time of purchase.
