@@ -1,3 +1,6 @@
+
+
+
 ## Why Does OrderIem Store Its Own Price?
 The OdretItem entity stores its own UnitPrice to preserve the price of a product at the time of purchase.
 A products current price may change in the future, but previous orders must still reflect the amount the customer originally paid.
