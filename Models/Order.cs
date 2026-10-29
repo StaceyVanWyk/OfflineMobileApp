@@ -1,6 +1,5 @@
 namespace OfflineMobileApp.Models;
 
-// Complete the Order class with properties for OrderID, CustomerID, OrderDate, and TotalAmount
 public class Order
 {
     
