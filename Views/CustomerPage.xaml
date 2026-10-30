@@ -1,60 +1,146 @@
 
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="OfflineMobileApp.Views.CustomerPage"
-    Title="Select Customer">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OfflineMobileApp.Views.CustomerPage"
+             BackgroundColor="#F8F3EB"
+             Title="Welcome">
 
-    <VerticalStackLayout Padding="25" Spacing="20">
+    <Grid RowDefinitions="Auto,Auto,*,Auto"
+          Padding="24,20">
 
-        <Label
-            Text="Welcome!"
-            FontSize="30"
-            FontAttributes="Bold"
-            TextColor="Black" />
+        <!-- App header -->
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,Auto"
+              Margin="0,5,0,35">
 
-        <Label
-            Text="Please select your name to continue shopping."
-            FontSize="16"
-            TextColor="Gray" />
+            <VerticalStackLayout Spacing="2">
+                <Label Text="SHOPONLINE"
+                       FontSize="23"
+                       FontAttributes="Bold"
+                       TextColor="#E97818"
+                       CharacterSpacing="2"/>
 
-        <Label
-            Text="Select Customer"
-            FontSize="18"
-            FontAttributes="Bold" />
+                <Label Text="YOUR EVERYDAY STYLE"
+                       FontSize="9"
+                       TextColor="#9A8D7D"
+                       CharacterSpacing="2"/>
+            </VerticalStackLayout>
 
-        <CollectionView ItemsSource="{Binding Customers}"
+            <Border Grid.Column="1"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="#FCE5D1"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 22">
+                <Label Text="🛍"
+                       FontSize="21"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- Welcome section -->
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="10"
+                             Margin="0,0,0,25">
+
+            <Label Text="Welcome!"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#342C25"/>
+
+            <Label Text="A little something for everyone."
+                   FontSize="15"
+                   TextColor="#8B8074"/>
+
+            <Label Text="Who is shopping today?"
+                   FontSize="19"
+                   FontAttributes="Bold"
+                   TextColor="#342C25"
+                   Margin="0,18,0,0"/>
+
+            <Label Text="Select your profile to continue."
+                   FontSize="13"
+                   TextColor="#9A8D7D"/>
+        </VerticalStackLayout>
+
+        <!-- Customer selection -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Customers}"
                         SelectionMode="Single"
                         SelectedItem="{Binding SelectedCustomer}">
 
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                    ItemSpacing="12"/>
+            </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+                    <Border BackgroundColor="White"
+                            Stroke="#EFE5D9"
+                            StrokeThickness="1"
+                            Padding="16"
+                            StrokeShape="RoundRectangle 16">
 
-                    <Border
-                        Padding="18"
-                        Margin="0,5"
-                        Stroke="#DDDDDD"
-                        StrokeThickness="1">
+                        <Grid ColumnDefinitions="52,*,Auto"
+                              ColumnSpacing="14">
 
-                        <Label
-                            Text="{Binding FullName}"
-                            FontSize="18"
-                            TextColor="Black" />
+                            <Border WidthRequest="48"
+                                    HeightRequest="48"
+                                    BackgroundColor="#FCE9D8"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 24"
+                                    VerticalOptions="Center">
+                                <Label Text="👤"
+                                       FontSize="22"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
 
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="3">
+                                <Label Text="{Binding FullName}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#342C25"/>
+
+                                <Label Text="Shopper"
+                                       FontSize="12"
+                                       TextColor="#A39789"/>
+                            </VerticalStackLayout>
+
+                            <Label Grid.Column="2"
+                                   Text="›"
+                                   FontSize="27"
+                                   TextColor="#E97818"
+                                   VerticalOptions="Center"/>
+                        </Grid>
                     </Border>
-
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
         </CollectionView>
 
-        <Button
-            Text="Continue Shopping"
-            BackgroundColor="#2563EB"
-            TextColor="White"
-            CornerRadius="10"
-            HeightRequest="50" />
+        <!-- Continue button -->
+        <VerticalStackLayout Grid.Row="3"
+                             Spacing="12"
+                             Margin="0,15,0,5">
 
-    </VerticalStackLayout>
+            <Button Text="Continue Shopping"
+                    Clicked="OnContinueShoppingClicked"
+                    BackgroundColor="#F58220"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    HeightRequest="56"
+                    CornerRadius="28"/>
 
+            <Label Text="A better shopping experience starts here."
+                   FontSize="11"
+                   TextColor="#A39789"
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>

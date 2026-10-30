@@ -12,6 +12,7 @@ public class CustomerViewModel
     public ObservableCollection<Customer> Customers { get; set; } = new();
 
     public Customer? SelectedCustomer { get; set; }
+    public bool HasSelectedCustomer => SelectedCustomer != null;
 
     public CustomerViewModel(DatabaseService databaseService)
     {

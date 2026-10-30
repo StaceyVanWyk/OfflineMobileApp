@@ -25,12 +25,26 @@ public partial class CustomerPage : ContentPage
             await _viewModel.LoadCustomersAsync();
         }
         catch (Exception ex)
-        
+        {
+            await DisplayAlert("Error", ex.Message, "OK");
+        }
+    }
+
+    private async void OnContinueShoppingClicked(object sender, EventArgs e)
+    {
+        if (_viewModel.SelectedCustomer == null)
         {
             await DisplayAlert(
-                "Error",
-                $"Could not load customers: {ex.Message}",
+                "Select Customer",
+                "Please select your name before continuing.",
                 "OK");
+
+            return;
         }
+
+        await Navigation.PushAsync(
+            new ProductPage(
+                App.Current!.Handler!.MauiContext!.Services
+                    .GetRequiredService<ProductViewModel>()));
     }
 }
