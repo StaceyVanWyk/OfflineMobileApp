@@ -1,32 +1,34 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
 using OfflineMobileApp.Services;
+using OfflineMobileApp.Views;
+
 namespace OfflineMobileApp;
 
 public partial class App : Application
 {
-	private readonly DatabaseService _databaseService;
-	public App(DatabaseService databaseService)
-	{
-		InitializeComponent();
-		_databaseService = databaseService;
-		
-	}
+    private readonly DatabaseService _databaseService;
+    private readonly CustomerPage _customerPage;
 
-	protected override Window CreateWindow(IActivationState? activationState)
-	{
-		return new Window(new AppShell());
-	}
+    public App(DatabaseService databaseService, CustomerPage customerPage)
+    {
+        InitializeComponent();
 
-	protected override async void OnStart()
+        _databaseService = databaseService;
+        _customerPage = customerPage;
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        return new Window(_customerPage);
+    }
+
+    protected override async void OnStart()
     {
         base.OnStart();
 
         await _databaseService.InitializeAsync();
-		await _databaseService.SeedCategoriesAsync();
-		
-
-		await _databaseService.SeedProductsAsync();
-		
-		
+        await _databaseService.SeedCategoriesAsync();
+        await _databaseService.SeedCustomersAsync();
+        await _databaseService.SeedProductsAsync();
     }
 }

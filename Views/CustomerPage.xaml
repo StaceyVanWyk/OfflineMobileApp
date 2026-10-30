@@ -1,0 +1,60 @@
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OfflineMobileApp.Views.CustomerPage"
+    Title="Select Customer">
+
+    <VerticalStackLayout Padding="25" Spacing="20">
+
+        <Label
+            Text="Welcome!"
+            FontSize="30"
+            FontAttributes="Bold"
+            TextColor="Black" />
+
+        <Label
+            Text="Please select your name to continue shopping."
+            FontSize="16"
+            TextColor="Gray" />
+
+        <Label
+            Text="Select Customer"
+            FontSize="18"
+            FontAttributes="Bold" />
+
+        <CollectionView ItemsSource="{Binding Customers}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedCustomer}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Padding="18"
+                        Margin="0,5"
+                        Stroke="#DDDDDD"
+                        StrokeThickness="1">
+
+                        <Label
+                            Text="{Binding FullName}"
+                            FontSize="18"
+                            TextColor="Black" />
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Button
+            Text="Continue Shopping"
+            BackgroundColor="#2563EB"
+            TextColor="White"
+            CornerRadius="10"
+            HeightRequest="50" />
+
+    </VerticalStackLayout>
+
+</ContentPage>

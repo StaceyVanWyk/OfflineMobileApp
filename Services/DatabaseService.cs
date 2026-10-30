@@ -32,6 +32,35 @@ public class DatabaseService
 
     }
     
+    
+public async Task<List<Customer>> GetCustomersAsync()
+{
+    await InitializeAsync();
+
+    return await _database.Table<Customer>().ToListAsync();
+}
+
+public async Task SeedCustomersAsync()
+{
+    await InitializeAsync();
+
+    var customers = await _database.Table<Customer>().ToListAsync();
+
+    if (customers.Count > 0)
+        return;
+
+    var sampleCustomers = new List<Customer>
+    {
+        new Customer { FullName = "Stacey Van Wyk" },
+        new Customer { FullName = "Alex Johnson" },
+        new Customer { FullName = "Sarah Williams" },
+        new Customer { FullName = "Michael Brown" },
+        new Customer { FullName = "Emily Davis" }
+    };
+
+    await _database.InsertAllAsync(sampleCustomers);
+}
+
 public async Task<List<Product>> GetProductsAsync()
 {
     await InitializeAsync();
