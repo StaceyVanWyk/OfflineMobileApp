@@ -3,74 +3,81 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="OfflineMobileApp.Views.ProductPage"
-    Title="Product Catalogue">
+    Title="Product Catalogue"
+    BackgroundColor="#F8F3EB">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <Grid RowDefinitions="Auto,*"
+          Padding="16,20">
 
-        <Label
-            Text="Shop Products"
-            FontSize="28"
-            FontAttributes="Bold"
-            TextColor="Black" />
+        <!-- Catalogue heading -->
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="8"
+                             Margin="0,0,0,18">
 
-        <Label
-            Text="Browse our available products"
-            FontSize="14"
-            TextColor="Gray" />
+            <Label Text="Shop Products"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#342C25" />
 
-        
-<CollectionView ItemsSource="{Binding Products}"
-                SelectionMode="None">
+            <Label Text="Browse our available products"
+                   FontSize="14"
+                   TextColor="#958779" />
 
-    <CollectionView.ItemsLayout>
-        <GridItemsLayout Orientation="Vertical"
-                         Span="2"
-                         HorizontalItemSpacing="12"
-                         VerticalItemSpacing="16"/>
-    </CollectionView.ItemsLayout>
+        </VerticalStackLayout>
 
-    <CollectionView.ItemTemplate>
-        <DataTemplate>
-            <Border BackgroundColor="White"
-                    Stroke="#EFE5D9"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 16"
-                    Padding="8">
+        <!-- Scrollable product catalogue -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Products}"
+                        SelectionMode="None"
+                        VerticalScrollBarVisibility="Always">
 
-                <VerticalStackLayout Spacing="7">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="2"
+                                 HorizontalItemSpacing="12"
+                                 VerticalItemSpacing="16"/>
+            </CollectionView.ItemsLayout>
 
-                    <Image Source="{Binding ImageName}"
-                           HeightRequest="135"
-                           Aspect="AspectFill"/>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border BackgroundColor="White"
+                            Stroke="#EFE5D9"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="8">
 
-                    <Label Text="{Binding ProductName}"
-                           FontSize="14"
-                           FontAttributes="Bold"
-                           TextColor="#342C25"
-                           LineBreakMode="WordWrap"/>
+                        <VerticalStackLayout Spacing="7">
 
-                    <Label Text="{Binding Description}"
-                           FontSize="11"
-                           TextColor="#958779"
-                           MaxLines="2"/>
+                            <Image Source="{Binding ImageName}"
+                                   HeightRequest="135"
+                                   Aspect="AspectFill"/>
 
-                    <Label Text="{Binding Price, StringFormat='R {0:F2}'}"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           TextColor="#F58220"/>
+                            <Label Text="{Binding ProductName}"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#342C25"
+                                   LineBreakMode="WordWrap"/>
 
-                    <Label Text="{Binding StockQuantity, StringFormat='Stock: {0}'}"
-                           FontSize="11"
-                           TextColor="#958779"/>
+                            <Label Text="{Binding Description}"
+                                   FontSize="11"
+                                   TextColor="#958779"
+                                   MaxLines="2"/>
 
-                </VerticalStackLayout>
-            </Border>
-        </DataTemplate>
-    </CollectionView.ItemTemplate>
+                            <Label Text="{Binding Price, StringFormat='R {0:F2}'}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#F58220"/>
 
-</CollectionView>
+                            <Label Text="{Binding StockQuantity, StringFormat='Stock: {0}'}"
+                                   FontSize="11"
+                                   TextColor="#958779"/>
 
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-    </VerticalStackLayout>
+        </CollectionView>
 
+    </Grid>
 </ContentPage>
