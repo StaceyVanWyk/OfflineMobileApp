@@ -1,8 +1,9 @@
-
+using SQLite;
 namespace OfflineMobileApp.Models;
 
 public class OrderItem
 {
+    [PrimaryKey, AutoIncrement]
     public int OrderItemID { get; set; }
 
     public int OrderID { get; set; }

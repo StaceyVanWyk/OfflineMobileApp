@@ -1,8 +1,10 @@
+using SQLite;
 namespace OfflineMobileApp.Models;
 
 
 public class Product
 {
+    [PrimaryKey, AutoIncrement]
     public int ProductID {get; set;}
     public int CategoryID {get; set;}
     public string ProductName {get; set;} = string.Empty;
