@@ -23,10 +23,10 @@ public partial class App : Application
 
         await _databaseService.InitializeAsync();
 		await _databaseService.SeedCategoriesAsync();
-		Console.WriteLine("ABOUT TO SEED PRODUCTS");
+		
 
 		await _databaseService.SeedProductsAsync();
-		Console.WriteLine("SIX PRODUCTS INSERTED");
+		
 		
     }
 }
