@@ -1,0 +1,68 @@
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="OfflineMobileApp.Views.SplashPage"
+    BackgroundColor="#F8F3EB"
+    Shell.NavBarIsVisible="False">
+
+    <Grid Padding="30"
+          RowDefinitions="*,Auto,*">
+
+        <VerticalStackLayout Grid.Row="1"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="18">
+
+            <Border BackgroundColor="#FCE5D1"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 42"
+                    HorizontalOptions="Center">
+
+                <Label Text="🛍"
+                       FontSize="85"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Border>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="SHOPONLINE"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       CharacterSpacing="3"
+                       TextColor="#E97818"
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="YOUR EVERYDAY STYLE"
+                       FontSize="11"
+                       CharacterSpacing="3"
+                       TextColor="#958779"
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+
+            <BoxView Color="#F58220"
+                     WidthRequest="45"
+                     HeightRequest="3"
+                     HorizontalOptions="Center"
+                     Margin="0,8"/>
+
+            <Label Text="A little something for everyone."
+                   FontSize="16"
+                   TextColor="#342C25"
+                   HorizontalTextAlignment="Center"/>
+
+        </VerticalStackLayout>
+
+        <Label Grid.Row="2"
+               Text="YOUR SHOPPING JOURNEY STARTS HERE"
+               FontSize="9"
+               CharacterSpacing="1.5"
+               TextColor="#A39789"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,0,0,25"/>
+
+    </Grid>
+</ContentPage>
