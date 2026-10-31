@@ -126,4 +126,36 @@ public partial class CartPage : ContentPage
         await DisplayAlert("Error", ex.Message, "OK");
     }
 }
+private async void OnCheckoutClicked(object sender, EventArgs e)
+{
+    bool confirm = await DisplayAlert(
+        "Confirm Order",
+        "Are you sure you want to complete this purchase?",
+        "Confirm",
+        "Cancel");
+
+    if (!confirm)
+        return;
+
+    try
+    {
+        var order = await _databaseService.CheckoutAsync(_customerId);
+
+        await LoadCartAsync();
+
+        await DisplayAlert(
+            "Order Successful!",
+            $"Your order has been placed successfully.\n\n" +
+            $"Order Number: {order.OrderID}\n" +
+            $"Total: R {order.TotalAmount:F2}",
+            "Continue Shopping");
+    }
+    catch (Exception ex)
+    {
+        await DisplayAlert(
+            "Checkout Failed",
+            ex.Message,
+            "OK");
+    }
+}
 }

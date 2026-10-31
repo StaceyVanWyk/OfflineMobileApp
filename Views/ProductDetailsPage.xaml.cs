@@ -49,7 +49,7 @@ private readonly DatabaseService _databaseService;
             QuantityLabel.Text = _quantity.ToString();
         }
     }
-    private async void OnAddToCartClicked(object sender, EventArgs e)
+ private async void OnAddToCartClicked(object sender, EventArgs e)
 {
     try
     {
@@ -58,14 +58,28 @@ private readonly DatabaseService _databaseService;
             _product.ProductID,
             _quantity);
 
-        await DisplayAlert(
-            "Added to Cart",
-            $"{_product.ProductName} has been added to your cart.",
-            "OK");
+        bool viewCart = await DisplayAlert(
+            "Added to Cart!",
+            $"{_product.ProductName} has been added to your cart.\n\nWhat would you like to do next?",
+            "View Cart",
+            "Continue Shopping");
+
+        if (viewCart)
+        {
+            await Navigation.PushAsync(
+                new CartPage(_databaseService, _customerId));
+        }
+        else
+        {
+            await Navigation.PopAsync();
+        }
     }
     catch (Exception ex)
     {
-        await DisplayAlert("Unable to Add Item", ex.Message, "OK");
+        await DisplayAlert(
+            "Unable to Add Item",
+            ex.Message,
+            "OK");
     }
 }
 }
