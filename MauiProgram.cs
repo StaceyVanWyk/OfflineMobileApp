@@ -5,6 +5,7 @@ using OfflineMobileApp.Services;
 using OfflineMobileApp.ViewModels;
 using OfflineMobileApp.Views;
 
+
 namespace OfflineMobileApp;
 
 public static class MauiProgram
@@ -24,6 +25,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CustomerViewModel>();
         builder.Services.AddTransient<ProductPage>();
         builder.Services.AddTransient<CustomerPage>();
+        builder.Services.AddTransient<CartPage>();
 
         builder
             .UseMauiApp<App>()

@@ -10,21 +10,33 @@
           Padding="16,20">
 
         <!-- Catalogue heading -->
-        <VerticalStackLayout Grid.Row="0"
-                             Spacing="8"
-                             Margin="0,0,0,18">
+      <VerticalStackLayout Grid.Row="0"
+                     Spacing="8"
+                     Margin="0,0,0,18">
 
-            <Label Text="Shop Products"
-                   FontSize="28"
-                   FontAttributes="Bold"
-                   TextColor="#342C25" />
+    <Grid ColumnDefinitions="*,Auto">
 
-            <Label Text="Browse our available products"
-                   FontSize="14"
-                   TextColor="#958779" />
+        <Label Text="Shop Products"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="#342C25"
+               VerticalOptions="Center"/>
 
-        </VerticalStackLayout>
+        <Button Grid.Column="1"
+                Text="View Cart"
+                Clicked="OnViewCartClicked"
+                BackgroundColor="#F58220"
+                TextColor="White"
+                CornerRadius="20"
+                FontSize="12"/>
 
+    </Grid>
+
+    <Label Text="Browse our available products"
+           FontSize="14"
+           TextColor="#958779"/>
+
+</VerticalStackLayout>
         <!-- Scrollable product catalogue -->
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Products}"

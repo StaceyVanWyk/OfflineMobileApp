@@ -1,6 +1,7 @@
 using OfflineMobileApp.Models;
 using OfflineMobileApp.ViewModels;
-
+using OfflineMobileApp.Services;
+using Microsoft.Extensions.DependencyInjection;
 namespace OfflineMobileApp.Views;
 
 public partial class ProductPage : ContentPage
@@ -37,4 +38,12 @@ public partial class ProductPage : ContentPage
         await Navigation.PushAsync(
             new ProductDetailsPage(selectedProduct, _customerId));
     }
+    private async void OnViewCartClicked(object sender, EventArgs e)
+{
+    var databaseService = App.Current!.Handler!.MauiContext!.Services
+        .GetRequiredService<DatabaseService>();
+
+    await Navigation.PushAsync(
+        new CartPage(databaseService, _customerId));
+}
 }

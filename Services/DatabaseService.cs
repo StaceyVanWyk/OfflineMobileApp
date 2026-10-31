@@ -1,6 +1,6 @@
 using OfflineMobileApp.Models;
 using SQLite;
-
+using OfflineMobileApp.ViewModels;
 namespace OfflineMobileApp.Services;
 
 public class DatabaseService
@@ -280,4 +280,24 @@ public async Task RemoveFromCartAsync(int cartItemId)
         await _database.DeleteAsync(cartItem);
 }
 
+public async Task<List<CartItemViewModel>> GetCartDetailsAsync(int customerId)
+{
+    await InitializeAsync();
+
+    var cartItems = await GetCartItemsAsync(customerId);
+
+    var cartDetails = new List<CartItemViewModel>();
+
+    foreach (var cartItem in cartItems)
+    {
+        var product = await GetProductByIdAsync(cartItem.ProductID);
+
+        if (product != null)
+        {
+            cartDetails.Add(new CartItemViewModel(cartItem, product));
+        }
+    }
+
+    return cartDetails;
+}
 }
