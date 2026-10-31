@@ -28,7 +28,8 @@
         <!-- Scrollable product catalogue -->
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Products}"
-                        SelectionMode="None"
+                        SelectionMode="Single"
+                         SelectionChanged="OnProductSelected"
                         VerticalScrollBarVisibility="Always">
 
             <CollectionView.ItemsLayout>

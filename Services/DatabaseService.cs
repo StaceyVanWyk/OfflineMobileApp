@@ -218,4 +218,66 @@ public async Task SeedProductsAsync()
 
     await _database.InsertAllAsync(products);
 }
+
+public async Task<List<CartItem>> GetCartItemsAsync(int customerId)
+{
+    await InitializeAsync();
+
+    return await _database.Table<CartItem>()
+        .Where(item => item.CustomerID == customerId)
+        .ToListAsync();
+}
+
+public async Task AddToCartAsync(int customerId, int productId, int quantity)
+{
+    await InitializeAsync();
+
+    if (quantity <= 0)
+        throw new ArgumentException("Quantity must be greater than zero.");
+
+    var product = await GetProductByIdAsync(productId);
+
+    if (product == null)
+        throw new Exception("Product not found.");
+
+    var existingCartItems = await GetCartItemsAsync(customerId);
+
+    var existingItem = existingCartItems
+        .FirstOrDefault(item => item.ProductID == productId);
+
+    int currentQuantity = existingItem?.Quantity ?? 0;
+
+    if (currentQuantity + quantity > product.StockQuantity)
+        throw new Exception("You cannot add more than the available stock.");
+
+    if (existingItem != null)
+    {
+        existingItem.Quantity += quantity;
+        await _database.UpdateAsync(existingItem);
+    }
+    else
+    {
+        var cartItem = new CartItem
+        {
+            CustomerID = customerId,
+            ProductID = productId,
+            Quantity = quantity
+        };
+
+        await _database.InsertAsync(cartItem);
+    }
+}
+
+public async Task RemoveFromCartAsync(int cartItemId)
+{
+    await InitializeAsync();
+
+    var cartItem = await _database.Table<CartItem>()
+        .Where(item => item.CartItemID == cartItemId)
+        .FirstOrDefaultAsync();
+
+    if (cartItem != null)
+        await _database.DeleteAsync(cartItem);
+}
+
 }

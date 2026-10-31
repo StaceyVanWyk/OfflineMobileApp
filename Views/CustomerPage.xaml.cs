@@ -1,5 +1,5 @@
-
 using OfflineMobileApp.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OfflineMobileApp.Views;
 
@@ -45,6 +45,7 @@ public partial class CustomerPage : ContentPage
         await Navigation.PushAsync(
             new ProductPage(
                 App.Current!.Handler!.MauiContext!.Services
-                    .GetRequiredService<ProductViewModel>()));
+                    .GetRequiredService<ProductViewModel>(),
+                _viewModel.SelectedCustomer.CustomerID));
     }
 }
