@@ -300,4 +300,109 @@ public async Task<List<CartItemViewModel>> GetCartDetailsAsync(int customerId)
 
     return cartDetails;
 }
+public async Task UpdateCartItemQuantityAsync(int cartItemId, int quantity)
+{
+    await InitializeAsync();
+
+    if (quantity <= 0)
+        throw new ArgumentException("Quantity must be greater than zero.");
+
+    var cartItem = await _database.Table<CartItem>()
+        .Where(item => item.CartItemID == cartItemId)
+        .FirstOrDefaultAsync();
+
+    if (cartItem == null)
+        throw new Exception("Cart item not found.");
+
+    var product = await GetProductByIdAsync(cartItem.ProductID);
+
+    if (product == null)
+        throw new Exception("Product not found.");
+
+    if (quantity > product.StockQuantity)
+        throw new Exception("You cannot exceed the available stock.");
+
+    cartItem.Quantity = quantity;
+
+    await _database.UpdateAsync(cartItem);
+}
+public async Task<Order> CheckoutAsync(int customerId)
+{
+    await InitializeAsync();
+
+    Order? completedOrder = null;
+
+    await _database.RunInTransactionAsync(connection =>
+    {
+        var cartItems = connection.Table<CartItem>()
+            .Where(item => item.CustomerID == customerId)
+            .ToList();
+
+        if (cartItems.Count == 0)
+            throw new Exception("Your shopping cart is empty.");
+
+        var products = new List<Product>();
+
+        decimal totalAmount = 0;
+
+        // Validate stock and calculate the order total
+        foreach (var cartItem in cartItems)
+        {
+            var product = connection.Table<Product>()
+                .Where(p => p.ProductID == cartItem.ProductID)
+                .FirstOrDefault();
+
+            if (product == null)
+                throw new Exception("A product in your cart could not be found.");
+
+            if (cartItem.Quantity <= 0 ||
+                cartItem.Quantity > product.StockQuantity)
+            {
+                throw new Exception(
+                    $"Insufficient stock for {product.ProductName}.");
+            }
+
+            products.Add(product);
+
+            totalAmount += product.Price * cartItem.Quantity;
+        }
+
+        // Create the order
+        var order = new Order
+        {
+            CustomerID = customerId,
+            OrderDate = DateTime.Now,
+            TotalAmount = totalAmount
+        };
+
+        connection.Insert(order);
+
+        // Save order items and update stock
+        for (int i = 0; i < cartItems.Count; i++)
+        {
+            var cartItem = cartItems[i];
+            var product = products[i];
+
+            var orderItem = new OrderItem
+            {
+                OrderID = order.OrderID,
+                ProductID = product.ProductID,
+                Quantity = cartItem.Quantity,
+                UnitPrice = product.Price
+            };
+
+            connection.Insert(orderItem);
+
+            product.StockQuantity -= cartItem.Quantity;
+
+            connection.Update(product);
+
+            connection.Delete(cartItem);
+        }
+
+        completedOrder = order;
+    });
+
+    return completedOrder!;
+}
 }

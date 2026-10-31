@@ -15,6 +15,7 @@ public class CartItemViewModel
     public decimal Price { get; set; }
 
     public int Quantity { get; set; }
+    public int AvailableStock { get; set; }
 
     public decimal Subtotal => Price * Quantity;
 
@@ -26,5 +27,6 @@ public class CartItemViewModel
         ImageName = product.ImageName;
         Price = product.Price;
         Quantity = cartItem.Quantity;
+        AvailableStock = product.StockQuantity;
     }
 }

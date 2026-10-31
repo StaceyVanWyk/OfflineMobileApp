@@ -62,9 +62,41 @@
                                        FontSize="14"
                                        TextColor="#F58220"/>
 
-                                <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}"
-                                       FontSize="13"
-                                       TextColor="#75695D"/>
+                                <HorizontalStackLayout Spacing="12"
+                       VerticalOptions="Center">
+
+    <Label Text="Quantity:"
+           FontSize="13"
+           TextColor="#75695D"
+           VerticalOptions="Center"/>
+
+    <Button Text="−"
+            Clicked="OnDecreaseQuantityClicked"
+            CommandParameter="{Binding .}"
+            WidthRequest="32"
+            HeightRequest="32"
+            CornerRadius="16"
+            Padding="0"
+            BackgroundColor="#FCE5D1"
+            TextColor="#342C25"/>
+
+    <Label Text="{Binding Quantity}"
+           FontSize="14"
+           FontAttributes="Bold"
+           TextColor="#342C25"
+           VerticalOptions="Center"/>
+
+    <Button Text="+"
+            Clicked="OnIncreaseQuantityClicked"
+            CommandParameter="{Binding .}"
+            WidthRequest="32"
+            HeightRequest="32"
+            CornerRadius="16"
+            Padding="0"
+            BackgroundColor="#F58220"
+            TextColor="White"/>
+
+</HorizontalStackLayout>
 
                                 <Label Text="{Binding Subtotal, StringFormat='Subtotal: R {0:F2}'}"
                                        FontSize="14"
@@ -103,6 +135,17 @@
                        FontSize="20"
                        FontAttributes="Bold"
                        TextColor="#F58220"/>
+                       <Button Text="Remove Item"
+        Clicked="OnRemoveItemClicked"
+        CommandParameter="{Binding .}"
+        BackgroundColor="#FCE5D1"
+        TextColor="#B84A35"
+        FontSize="12"
+        FontAttributes="Bold"
+        CornerRadius="15"
+        HeightRequest="35"
+        HorizontalOptions="Start"
+        Padding="12,0"/>
 
             </Grid>
 
