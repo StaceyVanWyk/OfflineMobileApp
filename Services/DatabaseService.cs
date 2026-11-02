@@ -34,6 +34,7 @@ public class DatabaseService
     
     
 public async Task<List<Customer>> GetCustomersAsync()
+
 {
     await InitializeAsync();
 
